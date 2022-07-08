@@ -23,18 +23,44 @@ import java.util.*;
 public class Compiler {
 
 
+    /**
+     * Compiles interfaces
+     * @param source folder containing our interfaces
+     * @param destination where to place the compiled interfaces
+     * @return a pair consisting of a boolean and a list of strings. The boolean is whether the compilation succeeded, and the list of strings is the list of errors
+     */
     public Pair<Boolean, List<String>> compileInterfaces(Path source, Path destination) {
         return compile(Collections.singletonList(source), destination, false, true);
     }
 
+    /**
+     * Compiles tests
+     * @param sources folders containing our interfaces and tests
+     * @param destination where to place the compiled files
+     * @return a pair consisting of a boolean and a list of strings. The boolean is whether the compilation succeeded, and the list of strings is the list of errors
+     */
     public Pair<Boolean, List<String>> compileTests(List<Path> sources, Path destination) {
         return compile(sources, destination, false, false);
     }
 
+    /**
+     * Compiles submission
+     * @param sources folder containing interfaces, tests, and the submission
+     * @param destination where to place the compiled result
+     * @return a pair consisting of a boolean and a list of strings. The boolean is whether the compilation succeeded, and the list of strings is the list of errors
+     */
     public Pair<Boolean, List<String>> compileSubmission(List<Path> sources, Path destination) {
         return compile(sources, destination, true, false);
     }
 
+    /**
+     * Method to call the compiler
+     * @param sources folders we are compiling
+     * @param destination where to put the result
+     * @param enforceImplementation whether we enforce that every interface has to be implemented
+     * @param createFactory whether we should create a factory based on the interfaces provided
+     * @return a pair consisting of a boolean and a list of strings. The boolean is whether the compilation succeeded, and the list of strings is the list of errors
+     */
     private Pair<Boolean, List<String>> compile(List<Path> sources, Path destination, boolean enforceImplementation, boolean createFactory) {
 
         // Get the compiler
